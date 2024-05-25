@@ -1,0 +1,22 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+[V.B0ARD] - User panel
+{% endblock %}
+
+{% block content %}
+<h2>User Registration </h2>
+<form action="" method="post">
+    {% csrf_token %}
+    {% for field in formpage %}
+    <div class="form-style">
+        {{ field.label_tag }}
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <br><button type="submit">Reg</button>
+</form>
+
+
+{% endblock %}

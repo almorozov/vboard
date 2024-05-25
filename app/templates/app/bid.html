@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+[V.B0ARD] - User panel
+{% endblock %}
+
+{% block content %}
+{% if comment|length > 0 %}
+    <h1> {{ comment }} </h1>
+{% endif %}
+
+<h1>Bid - Count
+    {% if bid|length > 0 %}
+        {{ bid|length }}
+    {% else %}
+        0
+    {% endif %}
+</h1>
+<ul>
+    {% if bid|length > 0 %}
+        {% for p in bid %}
+            <li> {{ p.date }} | {{ p.idb }} | {{ p.user }} | {{ p.title }} | {{ p.content }} | {{ p.serial_key }} [ <a href="{% url 'bid_read' p.idb %}">R</a> | <a href="{% url 'bid_upd' p.idb %}">U</a> | <a href="{% url 'bid_del' p.idb %}">D</a> ] </li>
+        {% endfor %}
+    {% else %}
+        <li>Not found</li>
+    {% endif %}
+</ul>
+<nav>
+    [
+    {% for p in bid.paginator.page_range %}
+        <a href="?page={{ p }}">{{ p }}</a> |
+    {% endfor %}
+    ]
+</nav>
+
+    {% if pk|length > 0 %}
+        <h3>Promo-key</h3>
+        <ul>
+        {% for p in pk %}
+            <li> {{ p.promo_key }} </li>
+        {% endfor %}
+        </ul>
+        <form action="{% url 'promo_active' %}" method="post">
+            {% csrf_token %}
+            {% for field in formpage %}
+            <div class="form-style">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+            {% endfor %}
+            <br><button type="submit">Submit</button>
+        </form>
+    {% endif %}
+
+{% endblock %}

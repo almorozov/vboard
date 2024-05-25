@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+[V.B0ARD] - User panel
+{% endblock %}
+
+{% block content %}
+{% if comment|length > 0 %}
+    <h1> {{ comment }} </h1>
+{% endif %}
+
+<h1>Station - Count
+    {% if station|length > 0 %}
+        {{ station|length }}
+    {% else %}
+        0
+    {% endif %}
+</h1>
+<ul>
+    {% if station|length > 0 %}
+        {% for p in station %}
+            <li> {{ p.name }} </li>
+        {% endfor %}
+    {% else %}
+        <li>Not found</li>
+    {% endif %}
+</ul>
+
+{% endblock %}

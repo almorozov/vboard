@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>[V.B0ARD] - TABLO train</title>
+    <link rel="stylesheet" href=" {% static 'app/css/form.css' %}">
+</head>
+
+<body>
+    <table border="0" cellpadding="5" width="100%">
+        <tr align="center">
+            <td colspan="3"><h2>[V.B0ARD] - TABLO train</h2></td>
+        </tr>
+        <tr>
+            <td align="center"><div class="form-style"><h2>Previous station <br> <b>[{{ station.0.name }}]</b> <br> {{ station.0.content }} </h2></div></td>
+            <td align="center"><div class="form-style"><h2>Forward to... <br> <b>[{{ station.1.name }}]</b> <br> {{ station.1.content }} </h2></div></td>
+            <td align="center"><div class="form-style"><h2>Next station <br> <b>[{{ station.2.name }}]</b> <br> {{ station.2.content }}</h2></div></td>
+        </tr>
+        <tr align="center">
+            <td colspan="3">
+                {% if bid %}
+                    <h2> [ {{ bid.title }} ] <br> {{ bid.content }} </h2>
+                {% else %}
+                    <h2> Place for your advertising</h2>
+                {% endif %}
+                <br><b>/Information message on the train/</b>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
