@@ -7,5 +7,5 @@ services:
       - 7000:7000
     volumes:
       - ./:/app
-    command: start.sh
+    command: "./start.sh"
     restart: on-failure
