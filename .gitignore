@@ -1,7 +1,6 @@
 # Игнорировать
 *.pyc
 *.pyo
-*!*.txt
 *.txt
 *.sqlite
 *.log
