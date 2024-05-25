@@ -9,20 +9,29 @@
     <h1> {{ comment }} </h1>
 {% endif %}
 
-<h1>Station - Count
+<p class="lead text-success"> <b> # Station - Count
     {% if station|length > 0 %}
         {{ station|length }}
     {% else %}
         0
     {% endif %}
-</h1>
+</b> </p>
 <ul>
     {% if station|length > 0 %}
+    <table class="table table-dark text-success">
+        <thead>
+            <tr>
+                <th scope="col">#Station_name</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for p in station %}
-            <li> {{ p.name }} </li>
+        <tr><td> {{ p.name }} </td></tr>
         {% endfor %}
+        </tbody>
+    </table>
     {% else %}
-        <li>Not found</li>
+        <p class="lead text-success"> <b> # Not found</b> </p>
     {% endif %}
 </ul>
 

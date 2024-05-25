@@ -5,17 +5,16 @@
 {% endblock %}
 
 {% block content %}
-<h2>Bid - Create </h2>
+<p class="lead text-success"> <b> # Bid - Create/Update </b> </p>
 <form action="" method="post">
-    {% csrf_token %}
     {% for field in formpage %}
-    <div class="form-style">
+    <div class="alert alert-success text-success" role="alert">
         {{ field.label_tag }}
         {{ field }}
         {{ field.errors }}
     </div>
     {% endfor %}
-    <br><button type="submit">Submit</button>
+    <br><input type="submit" class="btn btn-success" value="Submit">
 </form>
 
 

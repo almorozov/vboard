@@ -5,13 +5,18 @@ Login
 {% endblock %}
 
 {% block content %}
-<h2>Login</h2>
-<div class="form-style">
+<p class="lead text-success"> <b> # Login </b> </p>
+
 <form action="" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <br><button type="submit">Log in</button>
-</form>
+{% for field in form %}
+<div class="alert alert-success text-success" role="alert">
+    {{ field.label_tag }}
+    {{ field }}
+    {{ field.errors }}
 </div>
+{% endfor %}
+    <br><input type="submit" class="btn btn-success" value="Submit">
+</form>
+
 
 {% endblock %}

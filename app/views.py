@@ -71,7 +71,7 @@ def logout_logger(request, user, **kwargs):
 def fv_bid(request):
     bid = Bid.objects.filter(user=request.user).order_by('-id')
     pk = Promo.objects.filter(Q(user=request.user) & Q(status=False)).order_by('-id')
-    paginator = Paginator(bid, 3)
+    paginator = Paginator(bid, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     data = {
@@ -179,7 +179,7 @@ def fv_promo_active(request):
                 promo_key = form.cleaned_data['promo_key']
                 comment = f'Not Apply promo-key: { promo_key }'
                 bid = 0
-                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid[0].idb} {comment}"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "Error", "result": "Failed", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: Not found"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
             return render(request, 'app/bid.html', {'bid':bid, 'comment':comment})
     else: return HttpResponseRedirect("/app/bid")
 

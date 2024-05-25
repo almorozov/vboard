@@ -1,11 +1,12 @@
 from django.urls import path
 from django.contrib.auth import views
+from django.views.decorators.csrf import csrf_exempt
 from . import views as views_app
 
 
 urlpatterns = [
     path('', views_app.fv_app_index),
-    path('login', views.LoginView.as_view(), name='login'),
+    path('login', csrf_exempt(views.LoginView.as_view()), name='login'),
     path('logout', views.LogoutView.as_view(), name='logout'),
     path('usreg', views_app.fv_usreg, name='usreg'),
     path('bid', views_app.fv_bid, name='bid'),
