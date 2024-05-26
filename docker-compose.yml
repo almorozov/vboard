@@ -11,7 +11,7 @@ services:
     restart: always
 
   nginx:
-   restart: always
+    restart: always
     image: nginx:latest
     expose:
       - 7000
