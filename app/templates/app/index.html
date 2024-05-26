@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load static %}
 
 {% block title %}
 [V.B0ARD] - User panel
@@ -6,6 +7,7 @@
 
 {% block content %}
     <h1 align="center" class="text-success">[V.B0ARD] - Visual Board</h1> <br>
+    <div class="text-center"><img src="{% static 'app/images/start.png' %}" class="img-fluid" align="center"></div><br>
     <div class="alert alert-success text-success" role="alert">
         The service is designed to display the movement of a train along the route, control the display of information and
         advertising messages on train screens (boards). The service also provides a loyalty program for customers (promo codes).
