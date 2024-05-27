@@ -23,7 +23,7 @@ log = logging.getLogger(__name__)
 
 def fv_root(request):
     #log.error("Index start", extra={"user": request.user.pk})
-    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id,  "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id,  "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
     return render(request, 'app/index.html')
 
 
@@ -41,10 +41,10 @@ def fv_usreg(request):
             )
             try:
                 usr.save()
-                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
                 return HttpResponseRedirect("/app/login")
             except:
-                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "ERROR", "result": "Failed", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "ERROR", "result": "Failed", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
                 return HttpResponseRedirect("/app/usreg")
     else:
         form = UsregForm()
@@ -54,17 +54,17 @@ def fv_usreg(request):
 
 @receiver(user_logged_in)
 def login_logger(request, user, **kwargs):
-    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
 
 
 @receiver(user_login_failed)
 def login_failed_logger(request, *args, **kwargs):
-    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "ERROR", "result": "Failed", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "ERROR", "result": "Failed", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
 
 
 @receiver(user_logged_out)
 def logout_logger(request, user, **kwargs):
-    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.POST}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
 
 
 @login_required(login_url='login')
@@ -79,7 +79,7 @@ def fv_bid(request):
         'pk' : pk,
         'formpage' : PromoForm()
     }
-    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
     return render(request, 'app/bid.html', data)
 
 
@@ -98,7 +98,7 @@ def fv_bid_add(request):
             bid.save()
             bid.idb = f'b{ request.user.id }-{ bid.id }'
             bid.save()
-            log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid.idb} data: {request.POST}" }, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+            log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid.idb} data: {request.POST}" }, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
             pk = Promo.objects.filter(Q(user=request.user)).order_by('-id')
             idbid = 0
             if len(pk) > 0:
@@ -111,7 +111,7 @@ def fv_bid_add(request):
                     idbid = bid
                 )
                 pk.save()
-                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid.idb} Generate promo_key: {pk.promo_key}"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid.idb} Generate promo_key: {pk.promo_key}"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
             return HttpResponseRedirect("/app/bid")
     else:
         formpage = BidForm()
@@ -122,7 +122,7 @@ def fv_bid_add(request):
 def fv_bid_id(request, rq_idb):
     bid = Bid.objects.filter(Q(idb=rq_idb) & Q(user=request.user)).order_by('-id')
     data = {'bid' : bid }
-    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid[0].idb} data: {request.GET}" }, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid[0].idb} data: {request.GET}" }, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
     return render(request, 'app/bid.html', data)
 
 
@@ -136,7 +136,7 @@ def fv_bid_edit(request, rq_idb):
             if len(formpage.cleaned_data['content']) > 0: bid.content=formpage.cleaned_data['content']
             if len(formpage.cleaned_data['serial_key']) > 0: bid.serial_key=formpage.cleaned_data['serial_key']
             bid.save()
-            log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid.idb} data: {request.POST}" }, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+            log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid.idb} data: {request.POST}" }, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
             return render(request, 'app/bid.html', {'bid':{bid}, 'Comment':"Update bid..."})
     else:
         if bid.user == request.user:
@@ -154,7 +154,7 @@ def fv_bid_del(request, rq_idb):
     try:
         bid = Bid.objects.filter(Q(idb=rq_idb) & Q(user=request.user)).order_by('-id'),
         bid[0].delete()
-        log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+        log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
     except:
         pass
     return HttpResponseRedirect("/app/bid")
@@ -174,12 +174,12 @@ def fv_promo_active(request):
                 bid[0].bid_view_total = BID_VIEW_COUNT
                 bid[0].save()
                 comment = f'Apply promo-key: { pk[0].promo_key }'
-                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid[0].idb} {comment}"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: {bid[0].idb} {comment}"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
             else:
                 promo_key = form.cleaned_data['promo_key']
                 comment = f'Not Apply promo-key: { promo_key }'
                 bid = 0
-                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "Error", "result": "Failed", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: Not found"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+                log.info({"event": {"datetime": datetime.today().isoformat(), "level": "Error", "result": "Failed", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"IDB: Not found"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
             return render(request, 'app/bid.html', {'bid':bid, 'comment':comment})
     else: return HttpResponseRedirect("/app/bid")
 
@@ -189,7 +189,7 @@ def fv_station(request):
     field = request.GET.get('field')
     station_count = Station.objects.annotate(**{field: Count("name")})
     data = {'station': station_count}
-    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
     return render(request, 'app/station.html', data)
 
 
@@ -234,13 +234,13 @@ def fv_tablo(request):
             'bid' : bidv,
             'station' : stationv
     }
-    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": request.GET}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
     return render(request, 'app/tablo.html', data)
 
 
 def fv_rparam(request, rparam: str):
     template = f_pagenotfound(rparam)
-    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"rparam={rparam} GET:{request.GET}"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": request.META['REMOTE_ADDR']})
+    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": request.path, "user_id": request.user.id, "user": request.user.username, "req": request.method, "reqdata": f"rparam={rparam} GET:{request.GET}"}, "agent": {"name": request.META['SERVER_NAME'],"ip": request.META['HTTP_HOST'],"type": "app"},"fromhost": f_fromhost(request)})
     return HttpResponseNotFound(template.render({}, request))
 
 

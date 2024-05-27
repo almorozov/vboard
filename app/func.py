@@ -8,6 +8,13 @@ from .models import Station, Bid
 #from .views import log
 
 
+def f_fromhost(request):
+    if request.META.get('HTTP_X_REAL_IP'):
+        return request.META.get('HTTP_X_REAL_IP')
+    else:
+        return request.META['REMOTE_ADDR']
+
+
 def f_db_table_init():
     print("Exec> f_db_table_init..")
 #    log.info({"event": {"datetime": datetime.today().isoformat(), "level": "INFO", "result": "Succeess", "function": "f_db_table_init()", "user_id": "*",  "user": "*", "req": "*", "reqdata": "*"}, "agent": {"name": "*","ip": "*","type": "app"},"fromhost": "*"})
